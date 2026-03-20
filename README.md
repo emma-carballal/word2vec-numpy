@@ -52,8 +52,8 @@ d_pos = sigmoid(z_pos) - 1          # [B] one derivative per target-context pair
 d_neg = sigmoid(z_neg)              # [B, K] derivatives per noise word per target
 
 grad_w  = d_pos[:,None] * c  +  (d_neg[:,:,None] * n).sum(1)  # [B, D]
-grad_c  = d_pos[:,None] * w                                    # [B, D]
-grad_n  = d_neg[:,:,None] * w[:,None,:]                        # [B, K, D]
+grad_c  = d_pos[:,None] * w                                   # [B, D]
+grad_n  = d_neg[:,:,None] * w[:,None,:]                       # [B, K, D]
 ```
 
 ### Parameter update - SGD with linear LR decay
@@ -178,6 +178,8 @@ Nearest neighbours:
 ```
 
 <!-- RESULTS_END -->
+
+For a step-by-step explanation of the algorithm with a toy corpus, see [`word2vec.ipynb`](word2vec.ipynb).
 
 ---
 
