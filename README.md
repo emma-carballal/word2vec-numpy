@@ -1,5 +1,5 @@
-# word2vec
-Implementation of skip-gram word2vec with negative sampling (SGNS).
+# word2vec with numpy
+Implementation of skip-gram word2vec with negative sampling (SGNS) with numpy.
 
 ---
 
@@ -12,7 +12,7 @@ We have two embedding matrices:
 | Name | Shape | Role |
 |--------|-------|------|
 | **W** | $V \times D$ | Target word embeddings |
-| **C** | $V \times D$ | Context (positive example) and noise (negative example) word embeddings |
+| **C** | $V \times D$ | Context (positive examples) and noise (negative examples) word embeddings |
 
 $V$ = vocabulary size, $D$ = embedding dimension.
 
@@ -85,8 +85,10 @@ $\min\!\left(1,\; \sqrt{t / f(w)} + t / f(w)\right)$, reducing the dominance of 
 "the" and "of".
 
 **Negative sampling distribution**: raw unigram counts raised to the power
-0.75 - this smoothing increases the probability of rare words relative to
-true unigram frequency, preventing the model from ignoring them.
+0.75 increase the probability of rare words relative to
+true unigram frequency, and prevents the model from ignoring them.
+
+For a step-by-step explanation of the algorithm with a toy corpus, see [`word2vec.ipynb`](word2vec.ipynb).
 
 ---
 
@@ -177,9 +179,37 @@ Nearest neighbours:
     one          -> seven(0.892), six(0.879), eight(0.878), four(0.865), five(0.851)
 ```
 
-<!-- RESULTS_END -->
+---
 
-For a step-by-step explanation of the algorithm with a toy corpus, see [`word2vec.ipynb`](word2vec.ipynb).
+**Epoch 4/5** — avg loss: `2.3293`
+
+Config: vocab filtered at min_count=5, dim=100, window=2, neg=5, batch=512, lr=0.025
+
+Nearest neighbours:
+```
+    king         -> vii(0.962), emperor(0.939), viii(0.936), crowned(0.933), constantine(0.928)
+    paris        -> bologna(0.916), petersburg(0.912), concord(0.908), munich(0.905), syracuse(0.899)
+    computer     -> graphical(0.931), desktop(0.924), design(0.923), hardware(0.920), computers(0.920)
+    good         -> lot(0.920), things(0.912), everyone(0.911), worry(0.908), give(0.905)
+    one          -> seven(0.893), six(0.879), eight(0.878), four(0.865), five(0.852)
+```
+
+---
+
+**Epoch 5/5** — avg loss: `2.3290`
+
+Config: vocab filtered at min_count=5, dim=100, window=2, neg=5, batch=512, lr=0.025
+
+Nearest neighbours:
+```
+    king         -> vii(0.962), emperor(0.939), viii(0.936), crowned(0.933), constantine(0.928)
+    paris        -> bologna(0.916), petersburg(0.912), concord(0.908), munich(0.905), syracuse(0.899)
+    computer     -> graphical(0.931), desktop(0.924), design(0.923), hardware(0.920), computers(0.920)
+    good         -> lot(0.920), things(0.912), everyone(0.911), worry(0.908), give(0.905)
+    one          -> seven(0.893), six(0.879), eight(0.878), four(0.865), five(0.852)
+```
+
+<!-- RESULTS_END -->
 
 ---
 
